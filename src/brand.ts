@@ -147,6 +147,31 @@ export const artifact = {
   dotShade: "rgba(0,0,0,.4)",
 } as const;
 
+/**
+ * The chat surface — Beckett's brand doing chat.
+ *
+ * BeckettAdPunch simulates the Discord asks as Remotion components rather than
+ * screenshotting Discord. Deliberately NOT Discord's blurple/`#313338`: these
+ * are the site's own dark tokens (the same terminal ink the worker chrome uses)
+ * with lavender/cyan accents, so the beat reads as the brand having a
+ * conversation rather than a stolen client screenshot. Layout carries the
+ * "this is chat" read (avatar, name, timestamp, message), not the colour.
+ */
+export const chat = {
+  bg: "#171226",
+  bar: "#241d3a",
+  line: "rgba(233,228,246,.12)",
+  text: "#e9e4f6",
+  name: "#f4f1fb",
+  muted: "#a99fd0",
+  /** Left accent rule on a message — the beat's colour. */
+  accent: cyan.c2,
+  /** Avatar fill for the person asking. */
+  avatarHuman: lavender.l6,
+  /** Avatar fill for beckett itself. */
+  avatarSelf: cyan.c2,
+} as const;
+
 /** Pure base colours. */
 export const base = { white: "#ffffff", black: "#000000" } as const;
 
