@@ -24,9 +24,59 @@ worker env). It is never printed, committed, or written to disk.
 
 The first render downloads a headless Chrome for Remotion automatically.
 
-## The ad — `BeckettAd`
+## The ad — `BeckettAdPunch`
 
-A ~19s **ad**, not a showreel: fast cuts over the real product. An ask lands →
+The current cut. ~16s, and structured as **1-2 punches** rather than a montage:
+the whole piece is four ask/result pairs.
+
+> beat one — the **ask**: a simulated chat message, on screen just long enough to
+> read (~1s).
+> beat two — the **result**: the real artifact, **hard cut** in, held about as
+> long.
+
+Ask, result. Ask, result. No dissolve between the halves of a pair — the cut *is*
+the punch — and the pace tightens as it goes (pair one's ask holds 46 frames,
+pair four's 28).
+
+| # | the ask (verbatim) | the result |
+| --- | --- | --- |
+| 1 | *"we really should make a proper UI for bored"* | the live board at [bored.0xbeckett.me](https://bored.0xbeckett.me), then ticket **#12** and its journal |
+| 2 | *"the staffing watchdog can duplicate-staff a ticket during its finish window"* | [`0xbeckett/beckett@66390d1`](https://github.com/0xbeckett/beckett/commit/66390d1c39d02821c6f440aa60fff30310a0995a) — the `finishing` set, +16 — then **v6.5.1** shipping |
+| 3 | *"yeah goahead and file a real PR"* | [BetterWright/betterwright#65](https://github.com/BetterWright/betterwright/pull/65), real page, real state · 14 files · +474 −3 |
+| 4 | *"bored.0xbeckett.me as a read only link"* | that link, live, rendering **#16** — this ticket |
+
+**The chat beats are rendered, not screenshotted** (`src/compositions/beckett/chat.tsx`).
+They use the site's own dark ink and type from `brand.ts` — deliberately not
+Discord's blurple — so they read as the Beckett brand having a conversation
+rather than a stolen client screenshot. Layout carries the "this is chat" read:
+avatar, display name, timestamp, message. Text is quoted verbatim and every
+timestamp is the real UTC clock on the record that ask produced; the top bar
+names no channel, because inventing a readable channel name would be inventing
+something.
+
+**Effects budget** (a hard constraint, not a style note): hard cuts, stepped
+opacity fades ≤6 frames, linear camera pans over the captures, ≤10px translates,
+<10% zoom drift, and one 5-frame accent wipe as a result lands. No 3D, no
+particles, no blur, no long eases, no zoom-punch stacking. Silent — no music, no
+voiceover.
+
+```bash
+npm run ad                       # BeckettAdPunch (default)
+npm run ad -- BeckettAd          # the older montage cut, still reproducible
+npm run ad -- BeckettAdPunch 4.2 # …with the poster pulled from t=4.2s
+```
+
+Outputs:
+
+- `out/BeckettAdPunch-final.mp4` — 1920×1080 h264, ~3.5MB, comfortably under the
+  10MB Discord cap (so the second compress pass is skipped entirely).
+- `out/BeckettAdPunch-poster.jpg` — the poster frame, pulled from the first
+  payoff beat rather than the arbitrary midpoint.
+
+## The earlier cut — `BeckettAd`
+
+Still registered and still renders — kept so the previous deliverable stays
+reproducible. A ~19s **ad**, not a showreel: fast cuts over the real product. An ask lands →
 the ticket appears on the board → a worker runs → a real diff → a release → the
 PRs → the deployed URL. Every screen in the middle of the piece is a genuine
 capture of a live surface, so every frame is something you can go click on:
@@ -45,28 +95,22 @@ composition. The site holds the frame — the pastel sky and the isometric islan
 open and close the piece, and each screen sits inside the site's chunky ink
 chrome — but the product itself is the footage.
 
-Build it from one command:
+Build it with `npm run ad -- BeckettAd`.
+
+## Captures
+
+Both ad comps read their screens from `public/captures/`, which is **committed**,
+so either re-renders offline from a clean checkout. Refresh them against the live
+surfaces with:
 
 ```bash
-npm run ad
+npm run capture                     # every shot
+npm run capture -- board-v2 t16     # just these — leaves the rest untouched
 ```
 
-1. **render** — `BeckettAd` at `final` (1920×1080 h264).
-2. **compress** — a Discord-safe copy under 9MB, still full 1080p (no downscale).
-
-Outputs:
-
-- `out/BeckettAd-final.mp4` — full-quality delivery master (~5.5MB, already
-  under the 10MB Discord cap).
-- `out/BeckettAd-discord.mp4` — ~1.9MB, 1080p.
-
-The captures live in `public/captures/` and are **committed**, so the comp
-re-renders offline from a clean checkout. Refresh them against the live surfaces
-with:
-
-```bash
-npm run capture   # drives a real Chromium at 1920x1080 / 2x DPR
-```
+Name the shots you actually need: an unfiltered run re-takes the shots an already
+shipped cut depends on too. The `-v2`/`t*` shots belong to `BeckettAdPunch`; the
+unsuffixed ones are pinned for `BeckettAd`.
 
 That step needs `playwright` installed globally; it is asset prep, not a render
 dependency.
