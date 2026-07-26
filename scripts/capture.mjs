@@ -141,6 +141,18 @@ const SHOTS = [
     wait: 5000,
   },
   { name: "pr65-v2", url: "https://github.com/BetterWright/betterwright/pull/65", w: 1920, h: 1080, wait: 3500 },
+
+  /* ── BeckettAdWide (the Beckett-as-a-whole recut, #18) ──────────────────
+   * The recut widens scope past bored: the web (the island + live metrics),
+   * the browser agent posting to X. All real, all live, captured the same way
+   * — headless Chromium at 2x DPR against the real URL. No mockups. */
+  // 0xbeckett.me — the island / home. The canvas world takes a beat to paint,
+  // so give it a long settle before the shot.
+  { name: "island", url: "https://0xbeckett.me/", w: 1920, h: 1080, wait: 7000 },
+  // metrics.0xbeckett.me — the live metrics dashboard.
+  { name: "metrics", url: "https://metrics.0xbeckett.me/", w: 1920, h: 1080, wait: 6000, fullPage: true },
+  // @beckposting on X — the browser agent's own account, posting autonomously.
+  { name: "beckposting", url: "https://x.com/beckposting", w: 1920, h: 1080, wait: 6000 },
 ];
 
 async function main() {
