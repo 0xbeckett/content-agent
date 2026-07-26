@@ -31,7 +31,7 @@
  *
  * EFFECTS BUDGET (hard constraint)
  * Hard cuts; stepped opacity fades ≤6 frames; linear camera pans over the
- * captures; ≤10px translates; ≤5% zoom drift; one 5-frame accent wipe on the
+ * captures; ≤10px translates; <10% zoom drift; one 5-frame accent wipe on the
  * frame edge as a result lands. No 3D, no particles, no blur, no long eases, no
  * zoom-punch stacking. If a move does not sell the beat it is not here.
  */
@@ -156,7 +156,7 @@ const PAIRS: Pair[] = [
     ask: {
       dur: 46,
       who: "ro",
-      glyph: "r",
+      glyph: "ro",
       at: "09:33",
       text: "we really should make a proper UI for bored",
       note: "→ #12",
@@ -168,8 +168,8 @@ const PAIRS: Pair[] = [
         el: (d) => (
           <Result
             src="captures/board-v2.png"
-            from={{ cx: 1920, cy: 1000, z: 0.5 }}
-            to={{ cx: 1920, cy: 1120, z: 0.52 }}
+            from={{ cx: 1920, cy: 1010, z: 0.476 }}
+            to={{ cx: 1750, cy: 1080, z: 0.52 }}
             dur={d}
             label="the board"
             refText="bored.0xbeckett.me · 16 tickets"
@@ -182,8 +182,8 @@ const PAIRS: Pair[] = [
           <Result
             src="captures/t12.png"
             srcH={3462}
-            from={{ cx: 2878, cy: 940, z: 0.95 }}
-            to={{ cx: 2878, cy: 1610, z: 0.95 }}
+            from={{ cx: 3137, cy: 800, z: 1.3 }}
+            to={{ cx: 3137, cy: 1500, z: 1.3 }}
             dur={d}
             label="#12 · journal"
             refText="board + ticket detail web ui · done"
@@ -198,7 +198,7 @@ const PAIRS: Pair[] = [
     ask: {
       dur: 38,
       who: "ro",
-      glyph: "r",
+      glyph: "ro",
       at: "09:22",
       text: "the staffing watchdog can duplicate-staff a ticket during its finish window",
       note: "→ #11",
@@ -222,8 +222,8 @@ const PAIRS: Pair[] = [
         el: (d) => (
           <Result
             src="captures/release651.png"
-            from={{ cx: 1400, cy: 1150, z: 0.9 }}
-            to={{ cx: 1400, cy: 1290, z: 0.9 }}
+            from={{ cx: 1400, cy: 1080, z: 0.9 }}
+            to={{ cx: 1400, cy: 1240, z: 0.9 }}
             dur={d}
             label="shipped"
             refText="beckett v6.5.1 · 00a3b75"
@@ -238,7 +238,7 @@ const PAIRS: Pair[] = [
     ask: {
       dur: 30,
       who: "ro",
-      glyph: "r",
+      glyph: "ro",
       at: "08:51",
       text: "yeah goahead and file a real PR",
       note: "→ BetterWright/betterwright",
@@ -249,8 +249,8 @@ const PAIRS: Pair[] = [
         el: (d) => (
           <Result
             src="captures/pr65-v2.png"
-            from={{ cx: 1920, cy: 660, z: 0.85 }}
-            to={{ cx: 1920, cy: 760, z: 0.85 }}
+            from={{ cx: 1840, cy: 700, z: 0.8 }}
+            to={{ cx: 1840, cy: 820, z: 0.8 }}
             dur={d}
             label="filed upstream"
             refText="BetterWright/betterwright#65"
@@ -278,7 +278,7 @@ const PAIRS: Pair[] = [
     ask: {
       dur: 28,
       who: "ro",
-      glyph: "r",
+      glyph: "ro",
       at: "09:33",
       text: "bored.0xbeckett.me as a read only link",
       note: "→ read-only mode",
@@ -289,8 +289,8 @@ const PAIRS: Pair[] = [
         el: (d) => (
           <Result
             src="captures/t16.png"
-            from={{ cx: 2878, cy: 470, z: 0.95 }}
-            to={{ cx: 2878, cy: 620, z: 0.95 }}
+            from={{ cx: 3137, cy: 460, z: 1.3 }}
+            to={{ cx: 3137, cy: 580, z: 1.3 }}
             dur={d}
             label="live · read-only"
             refText="bored.0xbeckett.me/tickets/#16"
