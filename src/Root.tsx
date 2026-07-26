@@ -11,12 +11,23 @@ import { Smoke } from "./compositions/Smoke";
 import { BeckettDemo, DEMO_DURATION } from "./compositions/BeckettDemo";
 import { BeckettAd, AD_DURATION } from "./compositions/BeckettAd";
 import { BeckettAdPunch, AD_PUNCH_DURATION } from "./compositions/BeckettAdPunch";
+import { BeckettAdWide, AD_WIDE_DURATION } from "./compositions/BeckettAdWide";
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
-      {/* The 1-2 punch recut — the current deliverable. BeckettAd below is the
-          earlier montage cut, kept registered so that render stays reproducible. */}
+      {/* The Beckett-as-a-whole recut (#18) — the current deliverable. It widens
+          the punch cut's scope past the tracker to five surfaces. BeckettAdPunch
+          and BeckettAd below are the prior cuts, left registered so every earlier
+          render stays reproducible byte-for-byte. */}
+      <Composition
+        id="BeckettAdWide"
+        component={BeckettAdWide}
+        durationInFrames={AD_WIDE_DURATION}
+        fps={format.fps}
+        width={format.width}
+        height={format.height}
+      />
       <Composition
         id="BeckettAdPunch"
         component={BeckettAdPunch}

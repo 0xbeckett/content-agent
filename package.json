@@ -9,6 +9,7 @@
     "prep": "tsx scripts/prep-assets.ts",
     "demo": "tsx scripts/build-demo.ts",
     "ad": "tsx scripts/build-ad.ts",
+    "ad:wide": "tsx scripts/build-ad-wide.ts",
     "capture": "node scripts/capture.mjs",
     "studio": "remotion studio",
     "typecheck": "tsc --noEmit",
