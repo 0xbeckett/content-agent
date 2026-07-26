@@ -142,8 +142,10 @@ export const ChatBeat: React.FC<ChatBeatProps> = ({
   const showing = frame >= typing;
   const t = frame - typing;
 
-  // one stepped fade (5 frames) + one small rise (10px). that is the whole budget.
-  const on = stepFade(t, 0, 5, 5);
+  // One small rise (10px) always; a stepped 5-frame fade ONLY where the message
+  // replaces the typing dots mid-shot. An ask that opens its own shot hard-cuts
+  // in at full opacity — a fade there would put a blank frame on the punch.
+  const on = typing > 0 ? stepFade(t, 0, 5, 5) : 1;
   const rise = lin(t, [0, 6], [10, 0]);
   const noteOn = stepFade(t, 8, 5, 5);
 

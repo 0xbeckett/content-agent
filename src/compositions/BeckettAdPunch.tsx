@@ -96,16 +96,15 @@ const Result: React.FC<{
  */
 const Close: React.FC = () => {
   const frame = useCurrentFrame();
-  const markOn = stepFade(frame, 3, 6, 6);
-  const urlOn = stepFade(frame, 14, 6, 6);
-  const subOn = stepFade(frame, 24, 6, 6);
-  const rule = lin(frame, [16, 22], [0, 560]);
+  // the wordmark hard-cuts in with the shot — no dark frames between the last
+  // artifact and the close. only the url and its rule are staged after it.
+  const urlOn = stepFade(frame, 8, 6, 6);
+  const subOn = stepFade(frame, 22, 6, 6);
+  const rule = lin(frame, [14, 20], [0, 560]);
 
   return (
     <AbsoluteFill style={{ background: chat.bg, alignItems: "center", justifyContent: "center", gap: 34 }}>
-      <div style={{ opacity: markOn }}>
-        <Wordmark size={56} color={chat.name} />
-      </div>
+      <Wordmark size={56} color={chat.name} />
       <div
         style={{
           opacity: urlOn,
@@ -222,8 +221,8 @@ const PAIRS: Pair[] = [
         el: (d) => (
           <Result
             src="captures/release651.png"
-            from={{ cx: 1150, cy: 990, z: 0.9 }}
-            to={{ cx: 1150, cy: 1140, z: 0.9 }}
+            from={{ cx: 1050, cy: 990, z: 0.9 }}
+            to={{ cx: 1050, cy: 1140, z: 0.9 }}
             dur={d}
             label="shipped"
             refText="beckett v6.5.1 · 00a3b75"
