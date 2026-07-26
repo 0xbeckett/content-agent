@@ -112,6 +112,28 @@ export async function trim(
 }
 
 /**
+ * Re-encode a clip to a fixed fps + duration (and optionally drop audio). Used to
+ * normalise the fal seedance clip to the composition's 30fps so Remotion's
+ * OffthreadVideo maps composition frames to source frames 1:1 (fast, no
+ * interpolation) instead of resampling under concurrency.
+ */
+export async function reencode(
+  input: string,
+  output: string,
+  opts: RunOpts & { fps?: number; duration?: number; dropAudio?: boolean } = {},
+): Promise<string> {
+  await ensureDir(output);
+  const args = ["-y", "-i", input];
+  if (opts.duration != null) args.push("-t", String(opts.duration));
+  args.push("-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-pix_fmt", "yuv420p");
+  if (opts.fps != null) args.push("-r", String(opts.fps));
+  args.push(opts.dropAudio ? "-an" : "-c:a", ...(opts.dropAudio ? [] : ["aac"]));
+  args.push(output);
+  await run(FFMPEG, args, { label: "reencode", ...opts });
+  return output;
+}
+
+/**
  * Concatenate clips into one file. Uses the concat demuxer (stream copy) when
  * `reencode` is false; re-encodes with libx264 when inputs may differ.
  */
