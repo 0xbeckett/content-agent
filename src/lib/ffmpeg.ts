@@ -190,6 +190,40 @@ export async function transcodeH264(
   return output;
 }
 
+/**
+ * Compress to fit under a byte budget — the Discord-safe delivery (server caps
+ * uploads at 10MB; we target under 9MB). Computes a video bitrate from the clip
+ * duration and the budget, then does an accurate two-pass H.264 encode, optionally
+ * scaling down. Silent audio is dropped. Progress streams with a heartbeat.
+ */
+export async function compressToTarget(
+  input: string,
+  output: string,
+  maxBytes: number,
+  opts: RunOpts & { scaleWidth?: number; safety?: number } = {},
+): Promise<string> {
+  await ensureDir(output);
+  const dur = await probeDuration(input);
+  const safety = opts.safety ?? 0.92; // leave headroom under the cap for container overhead
+  const totalKbit = (maxBytes * 8 * safety) / 1000;
+  const bitrateKbps = Math.max(200, Math.floor(totalKbit / dur));
+  const vf = opts.scaleWidth ? ["-vf", `scale=${opts.scaleWidth}:-2:flags=lanczos`] : [];
+  const passLog = path.join(os.tmpdir(), `ff2pass-${process.pid}`);
+  const common = [
+    "-c:v", "libx264", "-preset", "medium",
+    "-b:v", `${bitrateKbps}k`, "-maxrate", `${Math.floor(bitrateKbps * 1.3)}k`,
+    "-bufsize", `${bitrateKbps * 2}k`, "-pix_fmt", "yuv420p", ...vf,
+  ];
+  try {
+    await run(FFMPEG, ["-y", "-i", input, ...common, "-pass", "1", "-passlogfile", passLog, "-an", "-f", "mp4", "/dev/null"], { label: "compress-1", ...opts });
+    await run(FFMPEG, ["-y", "-i", input, ...common, "-pass", "2", "-passlogfile", passLog, "-an", "-movflags", "+faststart", output], { label: "compress-2", ...opts });
+  } finally {
+    await rm(`${passLog}-0.log`, { force: true });
+    await rm(`${passLog}-0.log.mbtree`, { force: true });
+  }
+  return output;
+}
+
 /** Grab a single frame as a poster image. */
 export async function thumbnail(
   input: string,
@@ -206,5 +240,5 @@ export async function thumbnail(
   return output;
 }
 
-export const ffmpeg = { trim, concat, loudnorm, transcodeH264, thumbnail, probeDuration };
+export const ffmpeg = { trim, concat, loudnorm, transcodeH264, compressToTarget, thumbnail, probeDuration };
 export default ffmpeg;

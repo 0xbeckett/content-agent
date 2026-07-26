@@ -8,10 +8,19 @@
 import { Composition } from "remotion";
 import { format } from "./brand";
 import { Smoke } from "./compositions/Smoke";
+import { BeckettDemo, DEMO_DURATION } from "./compositions/BeckettDemo";
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
+      <Composition
+        id="BeckettDemo"
+        component={BeckettDemo}
+        durationInFrames={DEMO_DURATION}
+        fps={format.fps}
+        width={format.width}
+        height={format.height}
+      />
       <Composition
         id="Smoke"
         component={Smoke}
