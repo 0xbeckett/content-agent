@@ -17,7 +17,6 @@
  * clean checkout with no FAL_KEY and no re-spend.
  */
 import { Series } from "remotion";
-import { format } from "../brand";
 import "../fonts";
 import {
   SiteToWorld,
@@ -53,5 +52,3 @@ export const BeckettDemo: React.FC = () => (
     ))}
   </Series>
 );
-
-void format;
