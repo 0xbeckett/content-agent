@@ -24,6 +24,44 @@ worker env). It is never printed, committed, or written to disk.
 
 The first render downloads a headless Chrome for Remotion automatically.
 
+## The demo — `BeckettDemo`
+
+The flagship piece: a ~51s Beckett product demo that opens **inside** the
+0xbeckett.me pixel world, pushes past the page chrome until the home island fills
+frame, turns the world into the product by walking Beckett's real pipeline
+end-to-end (a request in Discord → filed to a worker's worktree → a real diff → a
+signed PR a second model red-teams → the reply landing back in the channel),
+punctuates with one live-action **fal seedance 2.0** beat (a webcam that flips to
+the machine side), and closes on the wordmark and `lets beckett`. Thesis: *this is
+what AI should be like.*
+
+Build the whole deliverable — full-quality **and** a Discord-safe copy — from one
+command:
+
+```bash
+npm run demo
+```
+
+That runs, streaming progress the whole way (never silent under the watchdog):
+
+1. **prep** (`scripts/prep-assets.ts`) — ensures the one fal seedance clip via the
+   `src/lib/fal.ts` `generateVideo` wrapper (content-addressed; a re-run is a cache
+   HIT and spends nothing), normalises it to 4.9s @ 30fps, and writes
+   `public/generated/seedance.mp4` (committed, so a clean checkout re-renders with
+   no `FAL_KEY` and no re-spend).
+2. **render** — `BeckettDemo` at `final` (1920×1080 h264, `-preset veryfast`).
+3. **compress** — a two-pass Discord-safe copy under 9MB.
+
+Outputs:
+
+- `out/BeckettDemo-final.mp4` — full-quality delivery master.
+- `out/BeckettDemo-discord.mp4` — under 9MB, for the 10MB Discord cap.
+
+The isometric voxel world is a deterministic 2D port of the site's `world.js`
+(`src/lib/iso.ts`) — same seeded geometry, same palette — so it reads as the island
+on 0xbeckett.me without any WebGL or browser automation. Every colour and font in
+the piece comes from `src/brand.ts`.
+
 ## Render a composition
 
 One command renders a named composition at a quality tier:
@@ -114,8 +152,10 @@ const shot = await generateImage("a chunky pixel-art lavender key emblem", {
   cached file and logs a cache **HIT** — no credits are spent on a re-render.
 - The cache manifest (`assets/generated/cache.json`) is **committed**; the
   generated media files are gitignored (large, regenerable).
-- `generateVideo()` exists but is **not invoked anywhere yet** — video generation
-  spends metered credits and lands in a later branch with its own cap.
+- `generateVideo()` is used by `scripts/prep-assets.ts` for the **one** seedance
+  clip in `BeckettDemo` (the only video generation in the project). It spends
+  metered credits on a cache MISS only; the committed manifest + committed
+  `public/generated/seedance.mp4` mean re-renders never re-spend.
 
 Optional round-trip check (one cheap image generation):
 

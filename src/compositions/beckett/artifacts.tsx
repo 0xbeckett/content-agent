@@ -11,7 +11,6 @@ import React from "react";
 import { fonts, artifact, ink, palette, cyan, mint, chrome, base, world } from "../../brand";
 import { blink, typed, stepFade } from "../../lib/motion";
 
-const MONO = '"JetBrains Mono", ui-monospace, monospace';
 
 /* ─────────────────────────── Discord ─────────────────────────── */
 
@@ -76,7 +75,7 @@ export const DLink: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 export const TicketCard: React.FC<{ frame: number; fps: number; width?: number }> = ({ frame, fps, width = 900 }) => {
   const rows: { k: string; v: React.ReactNode; at: number }[] = [
     { k: "project", v: "black-hole-opus", at: 10 },
-    { k: "worker", v: <span style={{ fontFamily: MONO }}>wk_b1a</span>, at: 18 },
+    { k: "worker", v: <span style={{ fontFamily: fonts.mono.stack }}>wk_b1a</span>, at: 18 },
     { k: "effort", v: "xhigh · one worker", at: 26 },
     { k: "review", v: "adversarial — 2nd model", at: 34 },
   ];
@@ -145,7 +144,7 @@ export const TerminalDiff: React.FC<{ frame: number; fps: number; width?: number
         <i style={{ width: 12, height: 12, background: cyan.c2, border: "1px solid artifact.dotShade" }} />
         <span style={{ marginLeft: 10, fontFamily: fonts.pixel.stack, fontSize: 16, color: artifact.termDim }}>wk_b1a@loom-desk · ~/black-hole-opus (ops-23)</span>
       </div>
-      <div style={{ background: artifact.termBg, padding: "20px 24px", fontFamily: MONO, fontSize: 18, lineHeight: 1.75, minHeight: 420 }}>
+      <div style={{ background: artifact.termBg, padding: "20px 24px", fontFamily: fonts.mono.stack, fontSize: 18, lineHeight: 1.75, minHeight: 420 }}>
         {TERM_LINES.map((l, i) =>
           i <= termShown ? (
             <div key={i} style={{ color: lineColor(l.kind), whiteSpace: "pre-wrap" }}>{l.text}</div>
@@ -197,7 +196,7 @@ export const PRCard: React.FC<{ frame: number; fps: number; width?: number }> = 
             {merged ? "⌥ Merged" : "⬤ Open"}
           </span>
           <span style={{ color: artifact.ghMuted, fontSize: 18 }}>
-            <b style={{ color: artifact.ghText, fontWeight: 600 }}>0xbeckett</b> wants to merge 3 commits into <code style={{ background: artifact.ghCanvas, padding: "2px 6px", borderRadius: 4, fontFamily: MONO, fontSize: 15 }}>main</code> from <code style={{ background: artifact.ghCanvas, padding: "2px 6px", borderRadius: 4, fontFamily: MONO, fontSize: 15 }}>ops-23</code>
+            <b style={{ color: artifact.ghText, fontWeight: 600 }}>0xbeckett</b> wants to merge 3 commits into <code style={{ background: artifact.ghCanvas, padding: "2px 6px", borderRadius: 4, fontFamily: fonts.mono.stack, fontSize: 15 }}>main</code> from <code style={{ background: artifact.ghCanvas, padding: "2px 6px", borderRadius: 4, fontFamily: fonts.mono.stack, fontSize: 15 }}>ops-23</code>
           </span>
         </div>
       </div>
