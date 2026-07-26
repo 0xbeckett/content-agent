@@ -13,34 +13,13 @@
  * remain the single source for every piece of UI *chrome*; these are the terrain
  * material, quoted from the world the brand file mirrors.
  */
-import { lavender, mint, cyan } from "../brand";
+import { world as VP } from "../brand";
 
 export type Vox = { x: number; y: number; z: number; c: string };
 export type Face = { pts: string; fill: string; key: number };
 
-/* ── voxel-world palette (world.js `P`), pinned to brand tokens where they match ── */
-export const VP = {
-  grassA: mint.m1, // 0xb7e2c1
-  grassB: mint.m0, // 0xa9d6b3
-  grassC: mint.m3, // 0x8fbf9b
-  soilA: "#cbbadf",
-  soilB: lavender.l7, // ~0xb3aad4 / world uses b9a7d1
-  core: lavender.l8, // 0xa392bf
-  trunk: "#bc9f8c",
-  blossom: ["#dcc9f4", "#cfb9ee", "#e9d7f8", "#f2dcf0"],
-  pine: ["#9ed8c3", "#8ccab2", "#7dbda3"],
-  wall: "#f7f0e0",
-  wallD: "#ebe2cd",
-  roof: lavender.l6, // ~0xb3a4dd
-  roofD: "#a090d0",
-  win: "#ffe2a1",
-  water: cyan.c2, // 0x8fd8de family (world 0xa9e3ea)
-  waterD: "#99dae2",
-  stone: "#c9c4d9",
-  stoneD: "#b6b0cc",
-  flower: ["#f4c9d9", "#ffe2a1", "#cfb9ee", "#ffffff"],
-  flag: [cyan.c2, "#cfb9ee", "#f4c9d9", "#ffe2a1", "#9ed8c3"],
-} as const;
+/* The terrain material is the site's own world palette, sourced from brand.ts. */
+export { VP };
 
 /* deterministic hash noise — the exact one world.js uses, so geometry matches. */
 export function rnd(x: number, y: number, z: number): number {
