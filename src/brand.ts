@@ -128,11 +128,41 @@ export const artifact = {
   diffDelText: "#cf222e",
   diffHunk: "#ddf4ff",
   diffGutter: "#f6f8fa",
-  // Terminal
+  // Terminal + diff (worker worktree)
   termBg: "#171226",
+  termBar: "#241d3a",
   termText: "#e6f4f6",
   termDim: "#a99fd0",
   termGreen: "#3e9e6e",
+  termDiffBorder: "#3a3358",
+  diffAddFg: "#7ee2a3",
+  diffDelFg: "#ff9ea5",
+  diffHunkFg: "#a9b4ff",
+  diffAddBgT: "rgba(35,163,90,.16)",
+  diffDelBgT: "rgba(207,34,46,.16)",
+  diffHunkBgT: "rgba(88,101,242,.16)",
+  // Discord mention chip + window-dot shade
+  mentionBg: "rgba(88,101,242,.3)",
+  mentionFg: "#c9cdfb",
+  dotShade: "rgba(0,0,0,.4)",
+} as const;
+
+/** Pure base colours. */
+export const base = { white: "#ffffff", black: "#000000" } as const;
+
+/**
+ * Translucent surfaces lifted verbatim from the site's CSS (page.css / index.html)
+ * — the nav bar, the `--line` hairline, the `.scrim` mist, the tooltip panel, the
+ * beacon glow. Kept here so even alpha surfaces have a single source.
+ */
+export const surface = {
+  scrimStrong: "rgba(244,247,252,.72)",
+  scrimSoft: "rgba(244,247,252,.28)",
+  navTop: "rgba(248,250,254,.9)",
+  navBot: "rgba(248,250,254,.62)",
+  line: "rgba(43,39,67,.16)",
+  panel: "rgba(255,255,255,.94)",
+  beaconGlow: "rgba(143,232,240,.5)",
 } as const;
 
 /** Flat palette — every brand color keyed by name, for convenience. */
@@ -166,6 +196,13 @@ export const fonts = {
     family: '"Inter"',
     weight: 400,
     stack: '"Inter", system-ui, sans-serif',
+  },
+  /** Code / diffs / worker ids — the site's `--mono`. Falls back to the system
+   * monospace in a headless render (not bundled); renders as clean mono either way. */
+  mono: {
+    family: '"JetBrains Mono"',
+    weight: 400,
+    stack: '"JetBrains Mono", ui-monospace, Menlo, monospace',
   },
 } as const;
 

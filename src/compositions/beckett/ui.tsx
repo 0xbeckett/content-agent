@@ -4,7 +4,7 @@
  * Every colour and font here comes from `brand.ts`.
  */
 import { staticFile } from "remotion";
-import { chrome, fonts, ink, palette, cyan, lavender } from "../../brand";
+import { chrome, fonts, ink, palette, cyan, lavender, base } from "../../brand";
 
 export const Logo: React.FC<{ size: number }> = ({ size }) => (
   <img src={staticFile("logo.svg")} width={size} height={size} alt="" style={{ display: "block", imageRendering: "pixelated" }} />
@@ -68,7 +68,7 @@ export const Btn: React.FC<{
       whiteSpace: "nowrap",
       border: chrome.border,
       color: variant === "primary" ? cyan.deep : ink.ink,
-      background: variant === "primary" ? cyan.c2 : "#ffffff",
+      background: variant === "primary" ? cyan.c2 : base.white,
       boxShadow: chrome.chunkyShadow,
       ...style,
     }}

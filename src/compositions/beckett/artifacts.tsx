@@ -8,7 +8,7 @@
  * Beckett's own board wears the site's brand chrome. All colour + type from brand.ts.
  */
 import React from "react";
-import { fonts, artifact, ink, palette, cyan, mint, chrome } from "../../brand";
+import { fonts, artifact, ink, palette, cyan, mint, chrome, base, world } from "../../brand";
 import { blink, typed, stepFade } from "../../lib/motion";
 
 const MONO = '"JetBrains Mono", ui-monospace, monospace';
@@ -42,7 +42,7 @@ export const DiscordCard: React.FC<{ frame: number; fps: number; messages: Msg[]
           const isTyping = shown < m.text.length;
           return (
             <div key={i} style={{ display: "flex", gap: 16, opacity: fade }}>
-              <div style={{ width: 46, height: 46, flex: "none", background: m.color, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: fonts.display.stack, fontWeight: 600, color: "#ffffff", fontSize: 22, borderRadius: 23 }}>
+              <div style={{ width: 46, height: 46, flex: "none", background: m.color, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: fonts.display.stack, fontWeight: 600, color: base.white, fontSize: 22, borderRadius: 23 }}>
                 {m.avatar}
               </div>
               <div style={{ flex: 1 }}>
@@ -65,7 +65,7 @@ export const DiscordCard: React.FC<{ frame: number; fps: number; messages: Msg[]
 
 /** A @mention chip in Discord's blurple style. */
 export const Mention: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <span style={{ color: "#c9cdfb", background: "rgba(88,101,242,.3)", padding: "1px 4px", borderRadius: 3, fontWeight: 600 }}>{children}</span>
+  <span style={{ color: artifact.mentionFg, background: artifact.mentionBg, padding: "1px 4px", borderRadius: 3, fontWeight: 600 }}>{children}</span>
 );
 export const DLink: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <span style={{ color: artifact.discordLink }}>{children}</span>
@@ -84,7 +84,7 @@ export const TicketCard: React.FC<{ frame: number; fps: number; width?: number }
     <div style={{ width, background: palette.l0, border: chrome.border, boxShadow: chrome.chunkyShadow, padding: "34px 40px" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 22 }}>
         <span style={{ fontFamily: fonts.pixel.stack, fontSize: 18, color: cyan.deep, background: cyan.c1, border: `2px solid ${ink.ink}`, padding: "4px 12px" }}>OPS-23</span>
-        <span style={{ fontFamily: fonts.pixel.stack, fontSize: 18, color: "#ffffff", background: mint.m3, border: `2px solid ${ink.ink}`, padding: "4px 12px", opacity: stepFade(frame, 4, 6, 3) }}>
+        <span style={{ fontFamily: fonts.pixel.stack, fontSize: 18, color: base.white, background: mint.m3, border: `2px solid ${ink.ink}`, padding: "4px 12px", opacity: stepFade(frame, 4, 6, 3) }}>
           ● in progress
         </span>
       </div>
@@ -139,10 +139,10 @@ export const TerminalDiff: React.FC<{ frame: number; fps: number; width?: number
   return (
     <div style={{ width, border: `2px solid ${ink.ink}`, boxShadow: chrome.dropShadow, overflow: "hidden" }}>
       {/* title bar */}
-      <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "12px 16px", background: "#241d3a", borderBottom: `1px solid #000` }}>
-        <i style={{ width: 12, height: 12, background: "#f4c9d9", border: "1px solid rgba(0,0,0,.4)" }} />
-        <i style={{ width: 12, height: 12, background: "#ffe2a1", border: "1px solid rgba(0,0,0,.4)" }} />
-        <i style={{ width: 12, height: 12, background: cyan.c2, border: "1px solid rgba(0,0,0,.4)" }} />
+      <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "12px 16px", background: artifact.termBar, borderBottom: `1px solid ${base.black}` }}>
+        <i style={{ width: 12, height: 12, background: world.flower[0], border: "1px solid artifact.dotShade" }} />
+        <i style={{ width: 12, height: 12, background: world.win, border: "1px solid artifact.dotShade" }} />
+        <i style={{ width: 12, height: 12, background: cyan.c2, border: "1px solid artifact.dotShade" }} />
         <span style={{ marginLeft: 10, fontFamily: fonts.pixel.stack, fontSize: 16, color: artifact.termDim }}>wk_b1a@loom-desk · ~/black-hole-opus (ops-23)</span>
       </div>
       <div style={{ background: artifact.termBg, padding: "20px 24px", fontFamily: MONO, fontSize: 18, lineHeight: 1.75, minHeight: 420 }}>
@@ -153,13 +153,13 @@ export const TerminalDiff: React.FC<{ frame: number; fps: number; width?: number
         )}
         {/* the diff */}
         {frame >= diffStart && (
-          <div style={{ marginTop: 14, border: `1px solid #3a3358` }}>
+          <div style={{ marginTop: 14, border: `1px solid ${artifact.termDiffBorder}` }}>
             {DIFF_LINES.map((d, i) => {
               if (i > diffShown) return null;
               const bg =
-                d.t === "add" ? "rgba(35,163,90,.16)" : d.t === "del" ? "rgba(207,34,46,.16)" : d.t === "hunk" ? "rgba(88,101,242,.16)" : "transparent";
+                d.t === "add" ? artifact.diffAddBgT : d.t === "del" ? artifact.diffDelBgT : d.t === "hunk" ? artifact.diffHunkBgT : "transparent";
               const fg =
-                d.t === "add" ? "#7ee2a3" : d.t === "del" ? "#ff9ea5" : d.t === "hunk" ? "#a9b4ff" : artifact.termDim;
+                d.t === "add" ? artifact.diffAddFg : d.t === "del" ? artifact.diffDelFg : d.t === "hunk" ? artifact.diffHunkFg : artifact.termDim;
               const sign = d.t === "add" ? "+" : d.t === "del" ? "-" : d.t === "hunk" ? "" : " ";
               return (
                 <div key={i} style={{ background: bg, color: fg, padding: "1px 12px", whiteSpace: "pre" }}>
@@ -193,7 +193,7 @@ export const PRCard: React.FC<{ frame: number; fps: number; width?: number }> = 
           Physically accurate black hole from first principles <span style={{ color: artifact.ghMuted, fontWeight: 400 }}>#23</span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 16 }}>
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 8, background: merged ? artifact.ghPurple : artifact.ghOpen, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 18, fontWeight: 600 }}>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 8, background: merged ? artifact.ghPurple : artifact.ghOpen, color: base.white, padding: "7px 16px", borderRadius: 20, fontSize: 18, fontWeight: 600 }}>
             {merged ? "⌥ Merged" : "⬤ Open"}
           </span>
           <span style={{ color: artifact.ghMuted, fontSize: 18 }}>
@@ -220,7 +220,7 @@ export const PRCard: React.FC<{ frame: number; fps: number; width?: number }> = 
         <span style={{ fontSize: 18, color: artifact.ghMuted }}>
           <b style={{ color: artifact.diffAddText }}>+214</b> <b style={{ color: artifact.diffDelText }}>−0</b> · 3 files changed
         </span>
-        <span style={{ background: merged ? artifact.ghPurple : artifact.ghGreen, color: "#fff", padding: "12px 22px", borderRadius: 8, fontSize: 19, fontWeight: 600 }}>
+        <span style={{ background: merged ? artifact.ghPurple : artifact.ghGreen, color: base.white, padding: "12px 22px", borderRadius: 8, fontSize: 19, fontWeight: 600 }}>
           {merged ? "Merged ✓" : "Merge pull request"}
         </span>
       </div>

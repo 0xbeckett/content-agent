@@ -5,7 +5,7 @@
  * artifact cards float in the same world the piece opened in — the site, closer.
  */
 import { AbsoluteFill, OffthreadVideo, staticFile, useCurrentFrame, useVideoConfig, interpolate } from "remotion";
-import { fonts, ink, palette, cyan, lavender, mint, chrome, format } from "../../brand";
+import { fonts, ink, palette, cyan, lavender, mint, chrome, format, surface } from "../../brand";
 import { easeInSteps, lin, stepFade, quantize, bob } from "../../lib/motion";
 import { IsoWorld } from "./IsoWorld";
 import { Sky } from "./Sky";
@@ -20,8 +20,7 @@ const Scrim: React.FC<{ opacity?: number }> = ({ opacity = 1 }) => (
   <AbsoluteFill
     style={{
       opacity,
-      background:
-        "radial-gradient(80% 60% at 30% 38%, rgba(244,247,252,.72), rgba(244,247,252,.28) 55%, transparent 78%)",
+      background: `radial-gradient(80% 60% at 30% 38%, ${surface.scrimStrong}, ${surface.scrimSoft} 55%, transparent 78%)`,
       pointerEvents: "none",
     }}
   />
@@ -100,8 +99,8 @@ export const SiteToWorld: React.FC = () => {
           position: "absolute", top: 0, left: 0, right: 0, opacity: chromeOut,
           transform: `translateY(${chromeY}px)`,
           padding: "26px 56px", display: "flex", alignItems: "center", justifyContent: "space-between",
-          background: "linear-gradient(rgba(248,250,254,.9),rgba(248,250,254,.62))",
-          borderBottom: `1px solid rgba(43,39,67,.16)`, backdropFilter: "blur(6px)",
+          background: `linear-gradient(${surface.navTop},${surface.navBot})`,
+          borderBottom: `1px solid ${surface.line}`, backdropFilter: "blur(6px)",
         }}
       >
         <Wordmark size={30} />
@@ -137,7 +136,7 @@ export const SiteToWorld: React.FC = () => {
 
       {/* world nameplate (after the push) */}
       <div style={{ position: "absolute", top: 92, left: "50%", transform: "translateX(-50%)", opacity: worldLocIn }}>
-        <div style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: 4, background: "rgba(255,255,255,.94)", border: chrome.border, boxShadow: chrome.dropShadow, padding: "10px 18px" }}>
+        <div style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: 4, background: surface.panel, border: chrome.border, boxShadow: chrome.dropShadow, padding: "10px 18px" }}>
           <span style={{ fontFamily: fonts.pixel.stack, fontSize: 24, color: ink.ink }}>beckett · prime</span>
           <span style={{ fontFamily: fonts.pixel.stack, fontSize: 16, color: lavender.deep }}>home island · this beckett</span>
         </div>
@@ -339,7 +338,7 @@ export const Close: React.FC = () => {
         <div key={i} style={{ position: "absolute", left: s.x, top: s.y, width: s.s, height: s.s, background: cyan.c0, opacity: night * s.tw }} />
       ))}
       <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 30 }}>
-        <div style={{ opacity: markIn, transform: `translateY(${markBob}px)`, filter: "drop-shadow(0 0 24px rgba(143,232,240,.5))" }}>
+        <div style={{ opacity: markIn, transform: `translateY(${markBob}px)`, filter: `drop-shadow(0 0 24px ${surface.beaconGlow})` }}>
           <Logo size={170} />
         </div>
         <div style={{ opacity: letsIn, display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
