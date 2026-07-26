@@ -182,8 +182,8 @@ const PAIRS: Pair[] = [
           <Result
             src="captures/t12.png"
             srcH={3462}
-            from={{ cx: 3137, cy: 800, z: 1.3 }}
-            to={{ cx: 3137, cy: 1500, z: 1.3 }}
+            from={{ cx: 3210, cy: 760, z: 1.45 }}
+            to={{ cx: 3210, cy: 1450, z: 1.45 }}
             dur={d}
             label="#12 · journal"
             refText="board + ticket detail web ui · done"
@@ -222,8 +222,8 @@ const PAIRS: Pair[] = [
         el: (d) => (
           <Result
             src="captures/release651.png"
-            from={{ cx: 1400, cy: 1080, z: 0.9 }}
-            to={{ cx: 1400, cy: 1240, z: 0.9 }}
+            from={{ cx: 1150, cy: 990, z: 0.9 }}
+            to={{ cx: 1150, cy: 1140, z: 0.9 }}
             dur={d}
             label="shipped"
             refText="beckett v6.5.1 · 00a3b75"
@@ -289,8 +289,8 @@ const PAIRS: Pair[] = [
         el: (d) => (
           <Result
             src="captures/t16.png"
-            from={{ cx: 3137, cy: 460, z: 1.3 }}
-            to={{ cx: 3137, cy: 580, z: 1.3 }}
+            from={{ cx: 3109, cy: 430, z: 1.25 }}
+            to={{ cx: 3109, cy: 500, z: 1.25 }}
             dur={d}
             label="live · read-only"
             refText="bored.0xbeckett.me/tickets/#16"
