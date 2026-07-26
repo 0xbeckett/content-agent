@@ -13,6 +13,23 @@ no editor UI, no clicking around a timeline.
 
 Output format is **1920×1080 @ 30fps**, TypeScript throughout.
 
+## The craft — `skills/video-editing/`
+
+How we cut, written down so the next video isn't cut on instinct.
+[`skills/video-editing/SKILL.md`](skills/video-editing/SKILL.md) is the house
+operating doc — pacing table by ad length, hard-cut policy, dwell floors, easing
+defaults, the effects budget, and a **pre-render review rubric** to self-check a
+cut before rendering. The depth and sources sit in
+[`references/editing.md`](skills/video-editing/references/editing.md) (editing +
+motion-design + kinetic-type craft) and
+[`references/remotion.md`](skills/video-editing/references/remotion.md) (Remotion
+techniques, each with a runnable snippet).
+
+The reusable primitives those rules encode live in
+[`src/lib/edit.ts`](src/lib/edit.ts) — `EASE`/`SPRING` presets, `stagger`,
+`punchIn`/`pushIn`, `typeOn`, `readingHold`, `beat`, and the `Cut`/`Hold`
+sequencing grammar. Compositions import these instead of hand-rolling motion.
+
 ## Setup
 
 ```bash
