@@ -109,15 +109,72 @@ const SHOTS = [
     h: 1080,
     wait: 3000,
   },
+
+  /* ── BeckettAdPunch (the 1-2 punch recut) ──────────────────────────────
+   * bored ships shareable ticket URLs (`/tickets/%23<n>`), so the ticket
+   * detail no longer needs a synthetic click — each pair's payoff is a real
+   * addressable page. Named `-v2` so the older shots above stay pinned and
+   * BeckettAd keeps re-rendering byte-for-byte. */
+  {
+    name: "board-v2",
+    url: "https://bored.0xbeckett.me/",
+    w: 1920,
+    h: 1080,
+    wait: 5000,
+  },
+  {
+    name: "board-v2-tall",
+    url: "https://bored.0xbeckett.me/",
+    w: 1920,
+    h: 1080,
+    wait: 5000,
+    fullPage: true,
+  },
+  // #12 — the bored web UI ticket, the payoff for "make a proper UI for bored"
+  {
+    name: "t12",
+    url: "https://bored.0xbeckett.me/tickets/%2312",
+    w: 1920,
+    h: 1080,
+    wait: 5000,
+    fullPage: true,
+  },
+  // #11 — the watchdog re-staff fix ticket
+  {
+    name: "t11",
+    url: "https://bored.0xbeckett.me/tickets/%2311",
+    w: 1920,
+    h: 1080,
+    wait: 5000,
+  },
+  // #16 — this very ticket, live on the read-only public link
+  {
+    name: "t16",
+    url: "https://bored.0xbeckett.me/tickets/%2316",
+    w: 1920,
+    h: 1080,
+    wait: 5000,
+  },
+  { name: "pr65-v2", url: "https://github.com/BetterWright/betterwright/pull/65", w: 1920, h: 1080, wait: 3500 },
+  { name: "pr7-v2", url: "https://github.com/frgmt0/bored/pull/7", w: 1920, h: 1080, wait: 3500 },
 ];
 
 async function main() {
   const { chromium } = loadPlaywright();
   await mkdir(OUT_DIR, { recursive: true });
 
+  // `node scripts/capture.mjs board-v2 t12` re-takes only those shots. Without
+  // a filter every shot is re-taken — which also re-dates the ones an already
+  // shipped comp depends on, so prefer naming what you actually need.
+  const only = new Set(process.argv.slice(2));
+  const shots = only.size ? SHOTS.filter((s) => only.has(s.name)) : SHOTS;
+  if (only.size && shots.length !== only.size) {
+    throw new Error(`unknown shot(s): ${[...only].filter((n) => !SHOTS.some((s) => s.name === n)).join(", ")}`);
+  }
+
   const browser = await chromium.launch();
   try {
-    for (const s of SHOTS) {
+    for (const s of shots) {
       const ctx = await browser.newContext({
         viewport: { width: s.w, height: s.h },
         deviceScaleFactor: 2,
