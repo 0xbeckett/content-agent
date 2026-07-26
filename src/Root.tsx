@@ -9,10 +9,19 @@ import { Composition } from "remotion";
 import { format } from "./brand";
 import { Smoke } from "./compositions/Smoke";
 import { BeckettDemo, DEMO_DURATION } from "./compositions/BeckettDemo";
+import { BeckettAd, AD_DURATION } from "./compositions/BeckettAd";
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
+      <Composition
+        id="BeckettAd"
+        component={BeckettAd}
+        durationInFrames={AD_DURATION}
+        fps={format.fps}
+        width={format.width}
+        height={format.height}
+      />
       <Composition
         id="BeckettDemo"
         component={BeckettDemo}
