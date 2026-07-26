@@ -46,6 +46,91 @@ export const cyan = {
   deep: "#173237",
 } as const;
 
+/**
+ * The voxel-world material — the exact palette `world.js` paints the archipelago
+ * with (turf, soil, cabin, trees, pond, flags). The same pastel family as the
+ * palettes above; pinned here so the video's terrain colours have a single source
+ * too. The site is the world, so the world's palette belongs in the brand file.
+ */
+export const world = {
+  grassA: mint.m1,
+  grassB: mint.m0,
+  grassC: mint.m3,
+  soilA: "#cbbadf",
+  soilB: "#b9a7d1",
+  core: lavender.l8,
+  trunk: "#bc9f8c",
+  blossom: ["#dcc9f4", "#cfb9ee", "#e9d7f8", "#f2dcf0"],
+  pine: ["#9ed8c3", "#8ccab2", "#7dbda3"],
+  wall: "#f7f0e0",
+  wallD: "#ebe2cd",
+  roof: "#b3a4dd",
+  roofD: "#a090d0",
+  win: "#ffe2a1",
+  water: "#a9e3ea",
+  waterD: "#99dae2",
+  stone: "#c9c4d9",
+  stoneD: "#b6b0cc",
+  flower: ["#f4c9d9", "#ffe2a1", "#cfb9ee", "#ffffff"],
+  flag: [cyan.c2, "#cfb9ee", "#f4c9d9", "#ffe2a1", "#9ed8c3"],
+  beacon: "#8fe8f0",
+  arc: "#9a86d8",
+  packet: "#4ea9b3",
+} as const;
+
+/**
+ * The sky, as CSS — the exact `html{background:…}` gradient stops from the site,
+ * plus the nightfall stops the day cycle keyframes toward at the CTA. Used by the
+ * open (morning) and close (nightfall) scenes.
+ */
+export const sky = {
+  morning: ["#bfe6ee", "#d3e2f2", "#e4ddf5", "#d9cff0"],
+  night: ["#2e2952", "#4c4480", "#6a5d99", "#4a4074"],
+  scrim: "rgba(244,247,252,.62)",
+} as const;
+
+/**
+ * Real-artifact chrome. The demo shows Beckett's ACTUAL surfaces — Discord,
+ * GitHub, unified diffs — and the whole point is that they're true, so they wear
+ * their real platform colours rather than being recoloured off-brand. Pinned here
+ * so even the artifact chrome has a single source and no raw hex leaks into a
+ * component.
+ */
+export const artifact = {
+  // Discord
+  discordBg: "#313338",
+  discordBg2: "#2b2d31",
+  discordChannel: "#1e1f22",
+  discordText: "#dbdee1",
+  discordMuted: "#949ba4",
+  discordName: "#f2f3f5",
+  discordLink: "#00a8fc",
+  discordBlurple: "#5865f2",
+  discordGreen: "#23a55a",
+  // GitHub (light)
+  ghBg: "#ffffff",
+  ghText: "#1f2328",
+  ghMuted: "#59636e",
+  ghBorder: "#d1d9e0",
+  ghCanvas: "#f6f8fa",
+  ghGreen: "#1f883d",
+  ghOpen: "#1a7f37",
+  ghPurple: "#8250df",
+  ghBlue: "#0969da",
+  // Diff
+  diffAddBg: "#e6ffec",
+  diffAddText: "#1a7f37",
+  diffDelBg: "#ffebe9",
+  diffDelText: "#cf222e",
+  diffHunk: "#ddf4ff",
+  diffGutter: "#f6f8fa",
+  // Terminal
+  termBg: "#171226",
+  termText: "#e6f4f6",
+  termDim: "#a99fd0",
+  termGreen: "#3e9e6e",
+} as const;
+
 /** Flat palette — every brand color keyed by name, for convenience. */
 export const palette = {
   ...ink,
