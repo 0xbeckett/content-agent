@@ -22,7 +22,7 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { generateVideo } from "../src/lib/fal";
-import { trim } from "../src/lib/ffmpeg";
+import { reencode } from "../src/lib/ffmpeg";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..");
@@ -63,10 +63,11 @@ async function main() {
   const clip = await generateVideo(SEEDANCE_PROMPT, { ...SEEDANCE_OPTS });
   console.log(`[prep] clip ${clip.cached ? "from CACHE (no spend)" : "GENERATED"} → ${clip.relPath}`);
 
-  // seedance returns ~5.04s at 24fps; trim to 4.9s so the delivered clip is
-  // unambiguously "5 seconds or less". Re-encode keeps it frame-accurate.
-  await trim(clip.path, dest, 0, 4.9, { label: "seedance-trim" });
-  console.log(`[prep] trimmed to 4.9s → public/${SEEDANCE_PUBLIC_REL}`);
+  // seedance returns ~5.04s at 24fps; normalise to 4.9s @ 30fps (audio dropped —
+  // the piece reads sound-off) so the delivered clip is unambiguously "5 seconds
+  // or less" and OffthreadVideo maps composition frames 1:1 under concurrency.
+  await reencode(clip.path, dest, { fps: 30, duration: 4.9, dropAudio: true, label: "seedance-norm" });
+  console.log(`[prep] normalised to 4.9s @ 30fps → public/${SEEDANCE_PUBLIC_REL}`);
 }
 
 main().catch((e) => {

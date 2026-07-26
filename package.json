@@ -6,6 +6,8 @@
   "type": "module",
   "scripts": {
     "render": "tsx scripts/render.ts",
+    "prep": "tsx scripts/prep-assets.ts",
+    "demo": "tsx scripts/build-demo.ts",
     "studio": "remotion studio",
     "typecheck": "tsc --noEmit",
     "smoke": "tsx scripts/render.ts Smoke preview"

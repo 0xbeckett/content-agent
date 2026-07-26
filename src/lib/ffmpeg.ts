@@ -262,5 +262,5 @@ export async function thumbnail(
   return output;
 }
 
-export const ffmpeg = { trim, concat, loudnorm, transcodeH264, compressToTarget, thumbnail, probeDuration };
+export const ffmpeg = { trim, reencode, concat, loudnorm, transcodeH264, compressToTarget, thumbnail, probeDuration };
 export default ffmpeg;

@@ -96,6 +96,9 @@ async function main() {
     crf: cfg.crf,
     x264Preset: cfg.preset,
     concurrency: null,
+    // OffthreadVideo frames are extracted per-thread; give them headroom over the
+    // 30s default so a busy clip extraction under full concurrency never trips it.
+    timeoutInMilliseconds: 120000,
     onProgress: ({ progress, renderedFrames, encodedFrames }) => {
       const now = Date.now();
       // Log on each 5% step OR at least every 8s — never silent.
