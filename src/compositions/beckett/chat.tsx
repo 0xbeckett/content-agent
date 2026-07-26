@@ -29,13 +29,13 @@ const AVATAR = 104;
  * has no rounded corners anywhere, so a perfect circle would read as someone
  * else's UI.
  */
-const Avatar: React.FC<{ fill: string; glyph: string }> = ({ fill, glyph }) => (
+const Avatar: React.FC<{ glyph: string }> = ({ glyph }) => (
   <div
     style={{
       width: AVATAR,
       height: AVATAR,
       flex: "none",
-      background: fill,
+      background: chat.avatar,
       border: chrome.border,
       boxShadow: chrome.dropShadow,
       display: "flex",
@@ -110,7 +110,7 @@ export type ChatBeatProps = {
   dur: number;
   /** Display name of the speaker, as it really appears. */
   who: string;
-  /** One-glyph avatar mark. */
+  /** Short avatar mark — the speaker's initials. */
   glyph: string;
   /** Real UTC clock on the corresponding record, `HH:MM`. */
   at: string;
@@ -120,8 +120,6 @@ export type ChatBeatProps = {
   note?: string;
   /** Frames of typing dots before the message lands. First pair only. */
   typing?: number;
-  /** `true` renders beckett's side of the exchange (cyan mark, lowercase). */
-  self?: boolean;
 };
 
 /**
@@ -136,16 +134,16 @@ export const ChatBeat: React.FC<ChatBeatProps> = ({
   text,
   note,
   typing = 0,
-  self = false,
 }) => {
   const frame = useCurrentFrame();
   const showing = frame >= typing;
   const t = frame - typing;
 
-  // One small rise (10px) always; a stepped 5-frame fade ONLY where the message
-  // replaces the typing dots mid-shot. An ask that opens its own shot hard-cuts
-  // in at full opacity — a fade there would put a blank frame on the punch.
-  const on = typing > 0 ? stepFade(t, 0, 5, 5) : 1;
+  // One small rise (10px) always; a stepped fade ONLY where the message replaces
+  // the typing dots mid-shot — and that fade starts two steps in, so the handoff
+  // never shows an empty frame. An ask that opens its own shot hard-cuts in at
+  // full opacity; a fade there would put a blank frame on the punch.
+  const on = typing > 0 ? stepFade(t + 2, 0, 5, 5) : 1;
   const rise = lin(t, [0, 6], [10, 0]);
   const noteOn = stepFade(t, 8, 5, 5);
 
@@ -167,12 +165,10 @@ export const ChatBeat: React.FC<ChatBeatProps> = ({
           alignItems: "flex-start",
         }}
       >
-        <div style={{ opacity: showing ? on : 1 }}>
-          <Avatar fill={self ? chat.avatarSelf : chat.avatarHuman} glyph={glyph} />
-        </div>
+        <Avatar glyph={glyph} />
 
         <div style={{ flex: 1, minWidth: 0, paddingTop: 4 }}>
-          <div style={{ display: "flex", alignItems: "baseline", gap: 18, opacity: showing ? on : 1 }}>
+          <div style={{ display: "flex", alignItems: "baseline", gap: 18 }}>
             <span
               style={{
                 fontFamily: fonts.display.stack,
@@ -208,7 +204,6 @@ export const ChatBeat: React.FC<ChatBeatProps> = ({
                   lineHeight: 1.24,
                   color: chat.text,
                   maxWidth: W - GUT - AVATAR - 34 - 260,
-                  textTransform: self ? "lowercase" : "none",
                 }}
               >
                 {text}

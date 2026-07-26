@@ -166,10 +166,8 @@ export const chat = {
   muted: "#a99fd0",
   /** Left accent rule on a message — the beat's colour. */
   accent: cyan.c2,
-  /** Avatar fill for the person asking. */
-  avatarHuman: lavender.l6,
-  /** Avatar fill for beckett itself. */
-  avatarSelf: cyan.c2,
+  /** Avatar fill. */
+  avatar: lavender.l6,
 } as const;
 
 /** Pure base colours. */
