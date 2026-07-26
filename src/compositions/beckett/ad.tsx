@@ -14,7 +14,7 @@
  * Motion is mechanical: linear pans, hard cuts, no bounce, no ease-out drift.
  */
 import { Img, staticFile, useCurrentFrame } from "remotion";
-import { chrome, fonts, ink, palette, cyan, lavender, base, format, surface } from "../../brand";
+import { chrome, fonts, ink, palette, cyan, lavender, format, surface } from "../../brand";
 import { lin, stepFade } from "../../lib/motion";
 
 const W = format.width;
@@ -157,4 +157,4 @@ export const BeatBar: React.FC<{ total: number }> = ({ total }) => {
   );
 };
 
-export { W, H, base };
+export { W, H };

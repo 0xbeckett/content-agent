@@ -23,7 +23,7 @@
  */
 import { AbsoluteFill, Series, useCurrentFrame, useVideoConfig } from "remotion";
 import "../fonts";
-import { fonts, ink, palette, cyan, lavender, sky as skyTokens } from "../brand";
+import { fonts, ink, lavender, sky as skyTokens } from "../brand";
 import { lin, stepFade, typed, blink, easeInSteps } from "../lib/motion";
 import { IsoWorld } from "./beckett/IsoWorld";
 import { Sky } from "./beckett/Sky";

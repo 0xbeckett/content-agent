@@ -24,6 +24,53 @@ worker env). It is never printed, committed, or written to disk.
 
 The first render downloads a headless Chrome for Remotion automatically.
 
+## The ad — `BeckettAd`
+
+A ~19s **ad**, not a showreel: fast cuts over the real product. An ask lands →
+the ticket appears on the board → a worker runs → a real diff → a release → the
+PRs → the deployed URL. Every screen in the middle of the piece is a genuine
+capture of a live surface, so every frame is something you can go click on:
+
+| shot | surface |
+| --- | --- |
+| board, board-tall | [bored.0xbeckett.me](https://bored.0xbeckett.me) — live, read-only |
+| ticket | ticket **#15** on that board (this ticket, with its live journal) |
+| watchdog | [`0xbeckett/beckett@66390d1`](https://github.com/0xbeckett/beckett/commit/66390d1c39d02821c6f440aa60fff30310a0995a) — the dispatcher watchdog fix, `src/dispatch/dispatcher.ts`, +16 |
+| release651 | [`0xbeckett/beckett@00a3b75`](https://github.com/0xbeckett/beckett/commit/00a3b75edb53fec1d856c34b8e6c698e4be0c126) — release **v6.5.1** |
+| pr65-files | [BetterWright/betterwright#65](https://github.com/BetterWright/betterwright/pull/65) — named, lockable browser profiles · 14 files · +474 −3 |
+| pr7 | [frgmt0/bored#7](https://github.com/frgmt0/bored/pull/7) — the bored UI, merged |
+
+There is **no** generated, live-action, fal or seedance footage anywhere in this
+composition. The site holds the frame — the pastel sky and the isometric island
+open and close the piece, and each screen sits inside the site's chunky ink
+chrome — but the product itself is the footage.
+
+Build it from one command:
+
+```bash
+npm run ad
+```
+
+1. **render** — `BeckettAd` at `final` (1920×1080 h264).
+2. **compress** — a Discord-safe copy under 9MB, still full 1080p (no downscale).
+
+Outputs:
+
+- `out/BeckettAd-final.mp4` — full-quality delivery master (~5.5MB, already
+  under the 10MB Discord cap).
+- `out/BeckettAd-discord.mp4` — ~1.9MB, 1080p.
+
+The captures live in `public/captures/` and are **committed**, so the comp
+re-renders offline from a clean checkout. Refresh them against the live surfaces
+with:
+
+```bash
+npm run capture   # drives a real Chromium at 1920x1080 / 2x DPR
+```
+
+That step needs `playwright` installed globally; it is asset prep, not a render
+dependency.
+
 ## The demo — `BeckettDemo`
 
 The flagship piece: a ~51s Beckett product demo that opens **inside** the
