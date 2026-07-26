@@ -35,10 +35,11 @@
  * frame edge as a result lands. No 3D, no particles, no blur, no long eases, no
  * zoom-punch stacking. If a move does not sell the beat it is not here.
  */
-import { AbsoluteFill, Series, useCurrentFrame } from "remotion";
+import { AbsoluteFill, useCurrentFrame } from "remotion";
 import "../fonts";
 import { chat, cyan, fonts } from "../brand";
 import { lin, stepFade } from "../lib/motion";
+import { Cut, Hold } from "../lib/edit";
 import { Screen, Label, INSET, type Cam } from "./beckett/ad";
 import { ChatBeat } from "./beckett/chat";
 import { Wordmark } from "./beckett/ui";
@@ -325,13 +326,15 @@ const BeatBar: React.FC<{ total: number }> = ({ total }) => {
 
 export const BeckettAdPunch: React.FC = () => (
   <AbsoluteFill style={{ background: chat.bg }}>
-    <Series>
+    {/* Every pair is a hard cut — the `Cut`/`Hold` grammar names exactly that:
+        back-to-back held shots, no dissolve. (See src/lib/edit.ts.) */}
+    <Cut>
       {SHOTS.map((s, i) => (
-        <Series.Sequence key={i} durationInFrames={s.d}>
-          {s.el(s.d)}
-        </Series.Sequence>
+        <Hold key={i} durationInFrames={s.d}>
+          {(d) => s.el(d)}
+        </Hold>
       ))}
-    </Series>
+    </Cut>
     <BeatBar total={AD_PUNCH_DURATION} />
   </AbsoluteFill>
 );
