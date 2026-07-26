@@ -1,14 +1,15 @@
 /**
- * Capture the REAL product surfaces the ad is built from.
+ * Capture the REAL product surfaces the ads are built from.
  *
- *   node scripts/capture.mjs
+ *   node scripts/capture.mjs                  # every shot
+ *   node scripts/capture.mjs board-v2 t16     # only these
  *
- * Every frame of BeckettAd is a real screen a person can go click on right now:
- * the live bored board, the two real PRs, the real dispatcher-watchdog diff, and
- * the v6.5.1 release commit. Nothing here is mocked or recreated — this script
- * drives a real Chromium at the real URLs and writes PNGs into
- * `public/captures/`, which are committed so the comp re-renders from a clean
- * checkout with no network.
+ * Every artifact frame of BeckettAdPunch and BeckettAd is a real screen a person
+ * can go click on right now: the live bored board, real PRs, the real
+ * dispatcher-watchdog diff, the v6.5.1 release commit. Nothing here is mocked or
+ * recreated — this script drives a real Chromium at the real URLs and writes PNGs
+ * into `public/captures/`, which are committed so the comps re-render from a
+ * clean checkout with no network.
  *
  * Shots are captured tall (fullPage where it helps) at 2x DPR so the composition
  * can pan/scroll inside them and still be crisp at 1080p.
@@ -122,14 +123,6 @@ const SHOTS = [
     h: 1080,
     wait: 5000,
   },
-  {
-    name: "board-v2-tall",
-    url: "https://bored.0xbeckett.me/",
-    w: 1920,
-    h: 1080,
-    wait: 5000,
-    fullPage: true,
-  },
   // #12 — the bored web UI ticket, the payoff for "make a proper UI for bored"
   {
     name: "t12",
@@ -138,14 +131,6 @@ const SHOTS = [
     h: 1080,
     wait: 5000,
     fullPage: true,
-  },
-  // #11 — the watchdog re-staff fix ticket
-  {
-    name: "t11",
-    url: "https://bored.0xbeckett.me/tickets/%2311",
-    w: 1920,
-    h: 1080,
-    wait: 5000,
   },
   // #16 — this very ticket, live on the read-only public link
   {
@@ -156,7 +141,6 @@ const SHOTS = [
     wait: 5000,
   },
   { name: "pr65-v2", url: "https://github.com/BetterWright/betterwright/pull/65", w: 1920, h: 1080, wait: 3500 },
-  { name: "pr7-v2", url: "https://github.com/frgmt0/bored/pull/7", w: 1920, h: 1080, wait: 3500 },
 ];
 
 async function main() {
