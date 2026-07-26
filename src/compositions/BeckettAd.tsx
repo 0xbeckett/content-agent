@@ -162,8 +162,8 @@ const SHOTS = [
     el: (d: number) => (
       <Shot
         src="captures/ticket.png"
-        from={{ cx: 3230, cy: 430, z: 1.45 }}
-        to={{ cx: 3230, cy: 505, z: 1.45 }}
+        from={{ cx: 3230, cy: 380, z: 1.45 }}
+        to={{ cx: 3230, cy: 455, z: 1.45 }}
         dur={d}
         label="staffed"
         refText="human gate · awaiting a verdict"
@@ -176,7 +176,7 @@ const SHOTS = [
     el: (d: number) => (
       <Shot
         src="captures/ticket.png"
-        from={{ cx: 3230, cy: 1250, z: 1.45 }}
+        from={{ cx: 3230, cy: 1150, z: 1.45 }}
         to={{ cx: 3230, cy: 1900, z: 1.45 }}
         dur={d}
         label="journal · live"
@@ -190,8 +190,8 @@ const SHOTS = [
     el: (d: number) => (
       <Shot
         src="captures/watchdog.png"
-        from={{ cx: 1700, cy: 600, z: 1.05 }}
-        to={{ cx: 1700, cy: 690, z: 1.05 }}
+        from={{ cx: 950, cy: 580, z: 1.0 }}
+        to={{ cx: 950, cy: 665, z: 1.0 }}
         dur={d}
         label="the fix"
         refText="0xbeckett/beckett@66390d1 · verified"
@@ -217,8 +217,8 @@ const SHOTS = [
     el: (d: number) => (
       <Shot
         src="captures/release651.png"
-        from={{ cx: 1700, cy: 600, z: 1.05 }}
-        to={{ cx: 1700, cy: 690, z: 1.05 }}
+        from={{ cx: 950, cy: 580, z: 1.0 }}
+        to={{ cx: 950, cy: 665, z: 1.0 }}
         dur={d}
         label="shipped"
         refText="beckett v6.5.1 · 00a3b75"
@@ -231,8 +231,8 @@ const SHOTS = [
     el: (d: number) => (
       <Shot
         src="captures/pr65-files.png"
-        from={{ cx: 1400, cy: 520, z: 0.7 }}
-        to={{ cx: 1400, cy: 640, z: 0.7 }}
+        from={{ cx: 1330, cy: 520, z: 0.7 }}
+        to={{ cx: 1330, cy: 640, z: 0.7 }}
         dur={d}
         label="upstream"
         refText="BetterWright/betterwright#65"
@@ -258,8 +258,8 @@ const SHOTS = [
     el: (d: number) => (
       <Shot
         src="captures/pr7.png"
-        from={{ cx: 1400, cy: 520, z: 0.73 }}
-        to={{ cx: 1400, cy: 655, z: 0.73 }}
+        from={{ cx: 1330, cy: 520, z: 0.73 }}
+        to={{ cx: 1330, cy: 655, z: 0.73 }}
         dur={d}
         label="merged"
         refText="frgmt0/bored#7"
@@ -273,8 +273,8 @@ const SHOTS = [
       <Shot
         src="captures/board-tall.png"
         srcH={3254}
-        from={{ cx: 2620, cy: 800, z: 0.75 }}
-        to={{ cx: 2620, cy: 2400, z: 0.75 }}
+        from={{ cx: 3080, cy: 850, z: 1.2 }}
+        to={{ cx: 3080, cy: 2050, z: 1.2 }}
         dur={d}
         label="12 done"
         refText="this week"
