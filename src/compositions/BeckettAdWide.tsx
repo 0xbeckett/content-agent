@@ -9,7 +9,7 @@
  * `bored` is now ONE beat among five, not the spine.
  *
  * THE FIVE PAIRS (spine = a plain-language Discord ask → the shipped result):
- *   1 · open source   "open a real PR on betterwright, upstream" → PR #65, 14 files, CI green
+ *   1 · open source   "open a real PR on betterwright, upstream" → PR #65, 14 files, +474 −3
  *   2 · the product   "make a proper UI for bored"              → the live board
  *   3 · self-mod      "you're double-staffing in the finish"    → fixed its own dispatcher, shipped v6.5.1
  *   4 · the web       "what's this all actually cost?"          → metrics.0xbeckett.me, proof of work
@@ -202,7 +202,7 @@ const PAIRS: Pair[] = [
             to={{ cx: 1900, cy: 1420, z: 0.75 }}
             dur={d}
             label="14 files"
-            refText="+474 −3 · named browser profiles · CI green"
+            refText="+474 −3 · named browser profiles"
           />
         ),
       },
