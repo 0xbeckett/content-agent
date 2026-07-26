@@ -214,22 +214,37 @@ export async function transcodeH264(
 
 /**
  * Compress to fit under a byte budget — the Discord-safe delivery (server caps
- * uploads at 10MB; we target under 9MB). Computes a video bitrate from the clip
- * duration and the budget, then does an accurate two-pass H.264 encode, optionally
- * scaling down. Silent audio is dropped. Progress streams with a heartbeat.
+ * uploads at 10MB; we target under 9MB).
+ *
+ * CRF-first: encode once at a constant quality (small file when the content
+ * compresses well, which this flat pastel piece does), optionally scaling down. If
+ * that somehow exceeds the budget, fall back to an accurate two-pass bitrate encode
+ * sized to the budget. Silent audio is dropped. Progress streams with a heartbeat.
  */
 export async function compressToTarget(
   input: string,
   output: string,
   maxBytes: number,
-  opts: RunOpts & { scaleWidth?: number; safety?: number } = {},
+  opts: RunOpts & { scaleWidth?: number; crf?: number; safety?: number } = {},
 ): Promise<string> {
   await ensureDir(output);
-  const dur = await probeDuration(input);
-  const safety = opts.safety ?? 0.92; // leave headroom under the cap for container overhead
-  const totalKbit = (maxBytes * 8 * safety) / 1000;
-  const bitrateKbps = Math.max(200, Math.floor(totalKbit / dur));
+  const crf = opts.crf ?? 25;
   const vf = opts.scaleWidth ? ["-vf", `scale=${opts.scaleWidth}:-2:flags=lanczos`] : [];
+
+  // pass 1: constant-quality single encode
+  await run(
+    FFMPEG,
+    ["-y", "-i", input, "-c:v", "libx264", "-preset", "medium", "-crf", String(crf), "-pix_fmt", "yuv420p", ...vf, "-an", "-movflags", "+faststart", output],
+    { label: "compress", ...opts },
+  );
+  const { statSync } = await import("node:fs");
+  if (statSync(output).size <= maxBytes) return output;
+
+  // fallback: budget-sized two-pass bitrate encode
+  console.log("[compress] CRF encode over budget — falling back to bitrate target…");
+  const dur = await probeDuration(input);
+  const safety = opts.safety ?? 0.92;
+  const bitrateKbps = Math.max(200, Math.floor((maxBytes * 8 * safety) / 1000 / dur));
   const passLog = path.join(os.tmpdir(), `ff2pass-${process.pid}`);
   const common = [
     "-c:v", "libx264", "-preset", "medium",
