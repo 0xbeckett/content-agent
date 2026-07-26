@@ -1,0 +1,13 @@
+node_modules/
+out/
+.remotion/
+
+# Generated fal assets are large + regenerable from the committed cache manifest.
+# The manifest itself (cache.json) IS committed so cache keys survive a clean checkout.
+assets/generated/*
+!assets/generated/.gitkeep
+!assets/generated/cache.json
+
+# Secrets — FAL_KEY lives in the environment only.
+.env
+.env.*

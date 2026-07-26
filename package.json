@@ -1,0 +1,29 @@
+{
+  "name": "content-agent",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Beckett video content pipeline — Remotion + FFmpeg + fal.ai. Headless, no browser automation.",
+  "type": "module",
+  "scripts": {
+    "render": "tsx scripts/render.ts",
+    "studio": "remotion studio",
+    "typecheck": "tsc --noEmit",
+    "smoke": "tsx scripts/render.ts Smoke preview"
+  },
+  "dependencies": {
+    "@fal-ai/client": "^1.10.1",
+    "@remotion/bundler": "4.0.499",
+    "@remotion/cli": "4.0.499",
+    "@remotion/fonts": "4.0.499",
+    "@remotion/renderer": "4.0.499",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "remotion": "4.0.499"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "19.2.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
