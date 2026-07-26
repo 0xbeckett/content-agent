@@ -1,5 +1,20 @@
 {
   "entries": {
+    "7816d6aec561fe3d": {
+      "key": "7816d6aec561fe3d",
+      "kind": "video",
+      "model": "bytedance/seedance-2.0/fast/text-to-video",
+      "prompt": "Cinematic live-action, one continuous shot, soft natural window light, calm pastel color grade with faint lavender and mint tints. It opens close on a person's face lit by a laptop webcam — relaxed, focused, a faint smile as they finish typing a short message to a coworker. Then the camera makes a smooth 180-degree arc around, whipping behind the screen to reveal the machine side of the same moment: a quiet matte server and a monitor glowing with lines of code and small agent panels lighting up one after another, the work already underway. Unhurried, warm and humane, shallow depth of field, no text overlays, no logos.",
+      "opts": {
+        "resolution": "720p",
+        "duration": "5",
+        "aspect_ratio": "16:9",
+        "generate_audio": false
+      },
+      "file": "assets/generated/7816d6aec561fe3d.mp4",
+      "sourceUrl": "https://v3b.fal.media/files/b/0aa3c6d1/jh9Lv6uGniW-TT5e8PYX8_video.mp4",
+      "createdAt": "2026-07-26T08:24:20.191Z"
+    },
     "faf34d8f8f122094": {
       "key": "faf34d8f8f122094",
       "kind": "image",
