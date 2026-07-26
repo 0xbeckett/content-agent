@@ -4,7 +4,7 @@
  * Every colour and font here comes from `brand.ts`.
  */
 import { staticFile } from "remotion";
-import { chrome, fonts, ink, palette, cyan } from "../../brand";
+import { chrome, fonts, ink, palette, cyan, lavender } from "../../brand";
 
 export const Logo: React.FC<{ size: number }> = ({ size }) => (
   <img src={staticFile("logo.svg")} width={size} height={size} alt="" style={{ display: "block", imageRendering: "pixelated" }} />
@@ -25,7 +25,7 @@ export const LocTag: React.FC<{ children: React.ReactNode; style?: React.CSSProp
   >
     <svg width={20} height={22} viewBox="0 0 20 22" style={{ flex: "none" }}>
       <path d="M10 1 19 6 10 11 1 6z" fill={cyan.c2} />
-      <path d="M1 6v10l9 5V11z" fill="#7a68b8" />
+      <path d="M1 6v10l9 5V11z" fill={lavender.deep} />
       <path d="M19 6v10l-9 5V11z" fill={palette.l6} />
     </svg>
     {children}

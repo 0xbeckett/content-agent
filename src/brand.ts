@@ -28,6 +28,8 @@ export const lavender = {
   l7: "#b3aad4",
   l8: "#a392bf",
   l9: "#8d7daa",
+  /** `--lv-deep` — the readable deep lavender the site uses for links + loc tags. */
+  deep: "#7a68b8",
 } as const;
 
 /** Mint accents. */
@@ -38,12 +40,14 @@ export const mint = {
   m3: "#8fbf9b",
 } as const;
 
-/** Cyan accents. `deep` is the near-black teal used for contrast. */
+/** Cyan accents. `deep` is the near-black teal used for contrast; `link` is the
+ * readable mid-teal (`--cy-deep`) the site uses for links and label text. */
 export const cyan = {
   c0: "#e6f4f6",
   c1: "#bfe6ee",
   c2: "#8fd8de",
   deep: "#173237",
+  link: "#3f96a2",
 } as const;
 
 /**
