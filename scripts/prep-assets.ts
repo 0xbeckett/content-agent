@@ -17,11 +17,12 @@
  *
  *   npx tsx scripts/prep-assets.ts
  */
-import { copyFile, mkdir } from "node:fs/promises";
+import { mkdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { generateVideo } from "../src/lib/fal";
+import { trim } from "../src/lib/ffmpeg";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..");
@@ -62,8 +63,10 @@ async function main() {
   const clip = await generateVideo(SEEDANCE_PROMPT, { ...SEEDANCE_OPTS });
   console.log(`[prep] clip ${clip.cached ? "from CACHE (no spend)" : "GENERATED"} → ${clip.relPath}`);
 
-  await copyFile(clip.path, dest);
-  console.log(`[prep] copied → public/${SEEDANCE_PUBLIC_REL}`);
+  // seedance returns ~5.04s at 24fps; trim to 4.9s so the delivered clip is
+  // unambiguously "5 seconds or less". Re-encode keeps it frame-accurate.
+  await trim(clip.path, dest, 0, 4.9, { label: "seedance-trim" });
+  console.log(`[prep] trimmed to 4.9s → public/${SEEDANCE_PUBLIC_REL}`);
 }
 
 main().catch((e) => {
