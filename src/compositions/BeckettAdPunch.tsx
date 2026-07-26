@@ -99,7 +99,7 @@ const Close: React.FC = () => {
   const markOn = stepFade(frame, 3, 6, 6);
   const urlOn = stepFade(frame, 14, 6, 6);
   const subOn = stepFade(frame, 24, 6, 6);
-  const rule = lin(frame, [14, 24], [0, 560]);
+  const rule = lin(frame, [16, 22], [0, 560]);
 
   return (
     <AbsoluteFill style={{ background: chat.bg, alignItems: "center", justifyContent: "center", gap: 34 }}>
@@ -293,7 +293,7 @@ const PAIRS: Pair[] = [
             to={{ cx: 3109, cy: 500, z: 1.25 }}
             dur={d}
             label="live · read-only"
-            refText="bored.0xbeckett.me/tickets/#16"
+            refText="bored.0xbeckett.me/tickets/%2316"
           />
         ),
       },

@@ -16,6 +16,7 @@
 import { useCurrentFrame } from "remotion";
 import { chat, chrome, fonts, ink, lavender, format } from "../../brand";
 import { lin, stepFade } from "../../lib/motion";
+import { Wordmark } from "./ui";
 
 const W = format.width;
 
@@ -76,8 +77,14 @@ export const TypingDots: React.FC = () => {
   );
 };
 
-/** The thin bar across the top — enough chrome to place the beat, no more. */
-const Bar: React.FC<{ where: string }> = ({ where }) => (
+/**
+ * The thin bar across the top — enough chrome to place the beat, no more.
+ *
+ * Deliberately NOT a channel name: the real conversation happens in a channel
+ * addressed by id, and inventing a readable `#some-channel` would be inventing
+ * something. So the bar says only what is true — this is beckett, in Discord.
+ */
+const Bar: React.FC = () => (
   <div
     style={{
       position: "absolute",
@@ -89,15 +96,12 @@ const Bar: React.FC<{ where: string }> = ({ where }) => (
       borderBottom: `2px solid ${chat.line}`,
       display: "flex",
       alignItems: "center",
-      paddingLeft: GUT,
-      gap: 16,
-      fontFamily: fonts.pixel.stack,
-      fontSize: 28,
-      color: chat.muted,
+      justifyContent: "space-between",
+      padding: `0 ${GUT}px`,
     }}
   >
-    <span style={{ color: chat.accent }}>#</span>
-    {where}
+    <Wordmark size={34} color={chat.name} />
+    <span style={{ fontFamily: fonts.mono.stack, fontSize: 26, color: chat.muted }}>discord</span>
   </div>
 );
 
@@ -148,7 +152,7 @@ export const ChatBeat: React.FC<ChatBeatProps> = ({
 
   return (
     <div style={{ position: "absolute", inset: 0, background: chat.bg }}>
-      <Bar where="beckett" />
+      <Bar />
 
       <div
         style={{
@@ -186,11 +190,13 @@ export const ChatBeat: React.FC<ChatBeatProps> = ({
           {showing ? (
             <div
               style={{
-                marginTop: 26,
+                display: "inline-block",
+                marginTop: 22,
                 opacity: on,
                 transform: `translateY(${rise}px)`,
+                background: chat.bar,
                 borderLeft: `6px solid ${chat.accent}`,
-                paddingLeft: 30,
+                padding: "26px 36px 24px 30px",
               }}
             >
               <div
@@ -220,7 +226,15 @@ export const ChatBeat: React.FC<ChatBeatProps> = ({
               )}
             </div>
           ) : (
-            <div style={{ marginTop: 30, borderLeft: `6px solid ${chat.line}`, paddingLeft: 30 }}>
+            <div
+              style={{
+                display: "inline-block",
+                marginTop: 22,
+                background: chat.bar,
+                borderLeft: `6px solid ${chat.line}`,
+                padding: "26px 44px 24px 30px",
+              }}
+            >
               <TypingDots />
             </div>
           )}
