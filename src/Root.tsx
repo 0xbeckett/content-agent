@@ -10,10 +10,21 @@ import { format } from "./brand";
 import { Smoke } from "./compositions/Smoke";
 import { BeckettDemo, DEMO_DURATION } from "./compositions/BeckettDemo";
 import { BeckettAd, AD_DURATION } from "./compositions/BeckettAd";
+import { BeckettAdPunch, AD_PUNCH_DURATION } from "./compositions/BeckettAdPunch";
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
+      {/* The 1-2 punch recut — the current deliverable. BeckettAd below is the
+          earlier montage cut, kept registered so that render stays reproducible. */}
+      <Composition
+        id="BeckettAdPunch"
+        component={BeckettAdPunch}
+        durationInFrames={AD_PUNCH_DURATION}
+        fps={format.fps}
+        width={format.width}
+        height={format.height}
+      />
       <Composition
         id="BeckettAd"
         component={BeckettAd}

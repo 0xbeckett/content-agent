@@ -1,7 +1,8 @@
 /**
- * Build the ad deliverable from ONE command:
+ * Build an ad deliverable from ONE command:
  *
- *   npm run ad
+ *   npm run ad              # BeckettAdPunch — the 1-2 punch cut (current)
+ *   npm run ad -- BeckettAd # the earlier montage cut, still reproducible
  *
  * Unlike `build-demo.ts` there is no asset-prep step: BeckettAd has no metered
  * or generated inputs. Every screen it shows is a committed real capture under
@@ -39,10 +40,12 @@ const mb = (n: number) => (n / 1024 / 1024).toFixed(2) + " MB";
 
 async function main() {
   const t0 = Date.now();
-  await step("npx", ["tsx", "scripts/render.ts", "BeckettAd", "final"]);
+  const comp = process.argv[2] ?? "BeckettAdPunch";
+  await step("npx", ["tsx", "scripts/render.ts", comp, "final"]);
 
-  const full = path.join(OUT, "BeckettAd-final.mp4");
-  const discord = path.join(OUT, "BeckettAd-discord.mp4");
+  // render.ts already wrote `<comp>-final.mp4` plus its `<comp>-final.jpg` poster.
+  const full = path.join(OUT, `${comp}-final.mp4`);
+  const discord = path.join(OUT, `${comp}-discord.mp4`);
 
   console.log("\n[ad] compressing a Discord-safe copy (<9MB, still 1080p)…");
   await compressToTarget(full, discord, TARGET_BYTES);
@@ -52,9 +55,10 @@ async function main() {
   console.log(`\n[ad] ✔ done in ${secs}s · duration ${dur.toFixed(1)}s`);
   console.log(`[ad]   full-quality : ${path.relative(REPO_ROOT, full)}  (${mb(f.size)})`);
   console.log(`[ad]   discord-safe : ${path.relative(REPO_ROOT, discord)}  (${mb(d.size)})`);
+  console.log(`[ad]   poster       : ${path.relative(REPO_ROOT, path.join(OUT, `${comp}-final.jpg`))}`);
 
-  if (dur < 15 || dur > 30) {
-    console.error(`[ad] WARNING: duration ${dur.toFixed(1)}s is outside the 15–30s brief.`);
+  if (dur < 15 || dur > 25) {
+    console.error(`[ad] WARNING: duration ${dur.toFixed(1)}s is outside the 15–25s brief.`);
     process.exit(2);
   }
   if (d.size > 10 * 1024 * 1024) {
