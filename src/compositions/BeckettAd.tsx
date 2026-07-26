@@ -21,10 +21,11 @@
  * close the piece, and every screen sits inside the site's chunky ink chrome.
  * Cuts are hard, pans are linear — mechanical and confident, never bouncy.
  */
-import { AbsoluteFill, Series, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
 import "../fonts";
 import { fonts, ink, lavender, sky as skyTokens } from "../brand";
-import { lin, stepFade, typed, blink, easeInSteps } from "../lib/motion";
+import { lin, stepFade, blink, easeInSteps } from "../lib/motion";
+import { Cut, Hold, typeOn } from "../lib/edit";
 import { IsoWorld } from "./beckett/IsoWorld";
 import { Sky } from "./beckett/Sky";
 import { LocTag, Wordmark, Disp } from "./beckett/ui";
@@ -37,9 +38,7 @@ const ASK = "he wants an ad, not a showreel";
 const Ask: React.FC<{ dur: number }> = ({ dur }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const n = typed(frame, 8, fps, ASK.length, 30);
-  const shown = ASK.slice(0, n);
-  const done = n >= ASK.length;
+  const { shown, done } = typeOn(frame, ASK, { fps, startFrame: 8, cps: 30 });
 
   // the island drifts up into frame — the site, always underneath the work
   const cy = lin(frame, [0, dur], [H * 0.86, H * 0.80]);
@@ -303,13 +302,14 @@ export const AD_DURATION = SHOTS.reduce((n, s) => n + s.d, 0);
 
 export const BeckettAd: React.FC = () => (
   <AbsoluteFill style={{ background: skyTokens.morning[2] }}>
-    <Series>
+    {/* Hard cuts throughout — the `Cut`/`Hold` grammar (src/lib/edit.ts). */}
+    <Cut>
       {SHOTS.map((s, i) => (
-        <Series.Sequence key={i} durationInFrames={s.d}>
-          {s.el(s.d)}
-        </Series.Sequence>
+        <Hold key={i} durationInFrames={s.d}>
+          {(d) => s.el(d)}
+        </Hold>
       ))}
-    </Series>
+    </Cut>
     <BeatBar total={AD_DURATION} />
   </AbsoluteFill>
 );
